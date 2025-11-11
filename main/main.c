@@ -1,81 +1,97 @@
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "driver/ledc.h"
-#include "esp_err.h"
+#include "driver/i2c.h"
+#include "esp_log.h"
 
-// Canal 1 - GPIO 25
-#define PWM1_PIN 25
-#define PWM1_FREQ_HZ 25000
-#define PWM1_RESOLUTION LEDC_TIMER_8_BIT
-#define PWM1_DUTY 255
-#define PWM1_MODE LEDC_LOW_SPEED_MODE
-#define PWM1_CHANNEL LEDC_CHANNEL_0
-#define PWM1_TIMER LEDC_TIMER_0
+#define I2C_MASTER_SCL_IO 22
+#define I2C_MASTER_SDA_IO 21
+#define I2C_MASTER_PORT I2C_NUM_0
+#define I2C_MASTER_FREQ_HZ 100000
+#define APDS9960_ADDR 0x39
 
-// Canal 2 - GPIO 27
-#define PWM2_PIN 27
-#define PWM2_FREQ_HZ 25000
-#define PWM2_RESOLUTION LEDC_TIMER_8_BIT
-#define PWM2_DUTY 255
-#define PWM2_MODE LEDC_LOW_SPEED_MODE
-#define PWM2_CHANNEL LEDC_CHANNEL_1
-#define PWM2_TIMER LEDC_TIMER_1
+static const char *TAG = "APDS9960";
+
+// Função para escrever 1 byte em um registrador
+esp_err_t apds9960_write(uint8_t reg, uint8_t value)
+{
+    i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+    i2c_master_start(cmd);
+    i2c_master_write_byte(cmd, (APDS9960_ADDR << 1) | I2C_MASTER_WRITE, true);
+    i2c_master_write_byte(cmd, reg, true);
+    i2c_master_write_byte(cmd, value, true);
+    i2c_master_stop(cmd);
+    esp_err_t ret = i2c_master_cmd_begin(I2C_MASTER_PORT, cmd, pdMS_TO_TICKS(1000));
+    i2c_cmd_link_delete(cmd);
+    return ret;
+}
+
+// Função para ler 1 byte de um registrador
+esp_err_t apds9960_read(uint8_t reg, uint8_t *data)
+{
+    i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+    i2c_master_start(cmd);
+    i2c_master_write_byte(cmd, (APDS9960_ADDR << 1) | I2C_MASTER_WRITE, true);
+    i2c_master_write_byte(cmd, reg, true);
+    i2c_master_start(cmd);
+    i2c_master_write_byte(cmd, (APDS9960_ADDR << 1) | I2C_MASTER_READ, true);
+    i2c_master_read_byte(cmd, data, I2C_MASTER_LAST_NACK);
+    i2c_master_stop(cmd);
+    esp_err_t ret = i2c_master_cmd_begin(I2C_MASTER_PORT, cmd, pdMS_TO_TICKS(1000));
+    i2c_cmd_link_delete(cmd);
+    return ret;
+}
+
+void apds9960_init()
+{
+    ESP_LOGI(TAG, "Inicializando APDS9960...");
+
+    // Habilita o sensor (PON + AEN + PEN)
+    apds9960_write(0x80, 0x0F); // ENABLE register
+    vTaskDelay(pdMS_TO_TICKS(10));
+
+    // Define ganho de proximidade
+    apds9960_write(0x8F, 0x02); // Proximity Gain = 4x
+
+    // Define LED drive
+    apds9960_write(0x83, 0x20); // LED Drive = 100 mA
+
+    ESP_LOGI(TAG, "APDS9960 inicializado.");
+}
+
+void apds9960_read_proximity()
+{
+    uint8_t prox;
+    esp_err_t ret = apds9960_read(0x9C, &prox);
+    if (ret == ESP_OK)
+    {
+        ESP_LOGI(TAG, "Proximidade: %d", prox);
+    }
+    else
+    {
+        ESP_LOGE(TAG, "Falha na leitura de proximidade");
+    }
+}
 
 void app_main(void)
 {
-    printf("Iniciando controle fixo de ventiladores PWM...\n");
+    // Configura I2C
+    i2c_config_t conf = {
+        .mode = I2C_MODE_MASTER,
+        .sda_io_num = I2C_MASTER_SDA_IO,
+        .scl_io_num = I2C_MASTER_SCL_IO,
+        .sda_pullup_en = GPIO_PULLUP_ENABLE,
+        .scl_pullup_en = GPIO_PULLUP_ENABLE,
+        .master.clk_speed = I2C_MASTER_FREQ_HZ,
+    };
+    i2c_param_config(I2C_MASTER_PORT, &conf);
+    i2c_driver_install(I2C_MASTER_PORT, conf.mode, 0, 0, 0);
 
-    // Configuração do temporizador do canal 1
-    ledc_timer_config_t ledc_timer1 = {
-        .speed_mode = PWM1_MODE,
-        .duty_resolution = PWM1_RESOLUTION,
-        .timer_num = PWM1_TIMER,
-        .freq_hz = PWM1_FREQ_HZ,
-        .clk_cfg = LEDC_AUTO_CLK};
-    ESP_ERROR_CHECK(ledc_timer_config(&ledc_timer1));
+    apds9960_init();
 
-    // Configuração do canal PWM 1
-    ledc_channel_config_t ledc_channel1 = {
-        .speed_mode = PWM1_MODE,
-        .channel = PWM1_CHANNEL,
-        .timer_sel = PWM1_TIMER,
-        .intr_type = LEDC_INTR_DISABLE,
-        .gpio_num = PWM1_PIN,
-        .duty = PWM1_DUTY,
-        .hpoint = 0};
-    ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel1));
-
-    // Configuração do temporizador do canal 2
-    ledc_timer_config_t ledc_timer2 = {
-        .speed_mode = PWM2_MODE,
-        .duty_resolution = PWM2_RESOLUTION,
-        .timer_num = PWM2_TIMER,
-        .freq_hz = PWM2_FREQ_HZ,
-        .clk_cfg = LEDC_AUTO_CLK};
-    ESP_ERROR_CHECK(ledc_timer_config(&ledc_timer2));
-
-    // Configuração do canal PWM 2
-    ledc_channel_config_t ledc_channel2 = {
-        .speed_mode = PWM2_MODE,
-        .channel = PWM2_CHANNEL,
-        .timer_sel = PWM2_TIMER,
-        .intr_type = LEDC_INTR_DISABLE,
-        .gpio_num = PWM2_PIN,
-        .duty = PWM2_DUTY,
-        .hpoint = 0};
-    ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel2));
-
-    // Aplicar duty cycle fixos
-    ESP_ERROR_CHECK(ledc_set_duty(PWM1_MODE, PWM1_CHANNEL, PWM1_DUTY));
-    ESP_ERROR_CHECK(ledc_update_duty(PWM1_MODE, PWM1_CHANNEL));
-
-    ESP_ERROR_CHECK(ledc_set_duty(PWM2_MODE, PWM2_CHANNEL, PWM2_DUTY));
-    ESP_ERROR_CHECK(ledc_update_duty(PWM2_MODE, PWM2_CHANNEL));
-
-    // Loop infinito
     while (1)
     {
-        vTaskDelay(pdMS_TO_TICKS(1000));
+        apds9960_read_proximity();
+        vTaskDelay(pdMS_TO_TICKS(500));
     }
 }
