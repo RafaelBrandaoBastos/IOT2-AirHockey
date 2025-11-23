@@ -1,32 +1,64 @@
-# _Sample project_
+# PUC Minas University - Air Hockey
 
-(See the README.md file in the upper level 'examples' directory for more information about examples.)
+<div align="center">
+  <img src="./assets/BannerPrincipal.png" alt="logo" width="100%" height="auto" />
 
-This is the simplest buildable example. The example is used by command `idf.py create-project`
-that copies the project to user specified path and set it's name. For more information follow the [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project)
+  &nbsp;
+  <p>Membros</p>
+  <table>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/RafaelBrandaoBastos" title="GitHub de Rafael Brandão">
+          <img src="./assets/user.png" width="100px" height="auto"/><br>
+          <sub><b>Rafael Brandão</b></sub>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/Awakened-Redstone" title="GitHub de Marcos Dias">
+          <img src="./assets/user.png" width="100px" height="auto"/><br>
+          <sub><b>Marcos Dias</b></sub>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/MattosPedro" title="GitHub de Pedro Lucas">
+          <img src="./assets/user.png" width="100px" height="auto"/><br>
+          <sub><b>Pedro Lucas</b></sub>
+        </a>
+      </td>
+      <td align="center">
+        <img src="./assets/user.png" width="100px" height="auto"/><br>
+        <sub><b>Rodrigo Rocha</b></sub>
+      </td>
+    </tr>
+  </table>
 
+  <p>Colaboradores</p>
+  <table>
+    <tr>
+      <td align="center">
+        <a href="https://www.linkedin.com/in/pedro-carneiro-rabetim-11156222a/" title="LinkedIn de Pedro Carneiro">
+          <img src="./assets/user.png" width="80px" height="auto"/><br>
+          <sub><b>Pedro Carneiro</b></sub>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://www.linkedin.com/in/mario-buratto-047b3630/" title="LinkedIn de Mario Buratto">
+          <img src="./assets/user.png" width="80px" height="auto"/><br>
+          <sub><b>Prof Mario B.</b></sub>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://www.linkedin.com/in/ilorivero/" title="LinkedIn de Ilo Ribeiro">
+          <img src="./assets/user.png" width="80px" height="auto"/><br>
+          <sub><b>Prof Ilo Ribeiro</b></sub>
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
 
+# 3D Prints
 
-## How to use example
-We encourage the users to use the example as a template for the new projects.
-A recommended way is to follow the instructions on a [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project).
+# Frontend
 
-## Example folder contents
-
-The project **sample_project** contains one source file in C language [main.c](main/main.c). The file is located in folder [main](main).
-
-ESP-IDF projects are built using CMake. The project build configuration is contained in `CMakeLists.txt`
-files that provide set of directives and instructions describing the project's source files and targets
-(executable, library, or both). 
-
-Below is short explanation of remaining files in the project folder.
-
-```
-├── CMakeLists.txt
-├── main
-│   ├── CMakeLists.txt
-│   └── main.c
-└── README.md                  This is the file you are currently reading
-```
-Additionally, the sample project contains Makefile and component.mk files, used for the legacy Make based build system. 
-They are not used or needed when building with CMake and idf.py.
+# Backend
