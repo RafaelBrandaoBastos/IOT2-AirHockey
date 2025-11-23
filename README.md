@@ -1,7 +1,7 @@
 # PUC Minas University - Air Hockey
 
 <div align="center">
-  <img src="./assets/banner.jpg" alt="logo" width="100%" height="auto" />
+  <img src="./assets/BANNERTESTE.png" alt="logo" width="100%" height="auto" />
 
   &nbsp;
   <p>Membros</p>
