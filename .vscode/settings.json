@@ -19,7 +19,8 @@
   "files.associations": {
     ".fantomasignore": "ignore",
     "esp_mac.h": "c",
-    "esp_err.h": "c"
+    "esp_err.h": "c",
+    "freertos.h": "c"
   },
   "idf.flashType": "UART"
 }
