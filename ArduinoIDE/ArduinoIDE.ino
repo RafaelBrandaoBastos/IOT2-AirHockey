@@ -2,6 +2,17 @@
 #include <APDS9930.h>
 #include "display_utils.h"
 
+#include <WiFi.h>
+#include <time.h>
+
+// CONFIG WIFI
+const char *ssid = "motorafael";
+const char *password = "1234567890";
+// CONFIG NTP
+const char *ntpServer = "pool.ntp.org";
+const long gmtOffset_sec = -3 * 3600; // UTC-3 Brasil
+const int daylightOffset_sec = 0;     // Sem horário de verão
+
 // Sensores
 APDS9930 sensor1;
 APDS9930 sensor2;
@@ -36,18 +47,38 @@ unsigned long lastDebounceTime = 0;
 const unsigned long debounceDelay = 50; // ms
 
 // -------------------------------------------------------------------
-
 void setup()
 {
     Serial.begin(115200);
 
     Serial.println("Dual Fan Controller Starting...");
+
     ledcAttach(FAN1_PIN, PWM_FREQ, PWM_RESOLUTION);
     ledcAttach(FAN2_PIN, PWM_FREQ, PWM_RESOLUTION);
     ledcWrite(FAN1_PIN, FAN_SPEED);
     ledcWrite(FAN2_PIN, FAN_SPEED);
 
     pinMode(BUTTON_PIN, INPUT_PULLUP); // botão com pull-up
+
+    // --------- CONECTAR WIFI ---------
+    WiFi.begin(ssid, password);
+    Serial.print("Conectando ao WiFi");
+    while (WiFi.status() != WL_CONNECTED)
+    {
+        Serial.print(".");
+        delay(500);
+    }
+    Serial.println("\nWiFi conectado!");
+    // --------- SINCRONIZAR TEMPO NTP ---------
+    configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+    // Esperar sincronização
+    struct tm timeinfo;
+    while (!getLocalTime(&timeinfo))
+    {
+        Serial.println("Aguardando tempo via NTP...");
+        delay(500);
+    }
+    Serial.println("Hora sincronizada!");
 
     // Sensor 1
     I2C_1.begin(18, 19);
@@ -72,37 +103,30 @@ void setup()
 }
 
 // -------------------------------------------------------------------
-
 void startNewMatch()
 {
     score1 = 0;
     score2 = 0;
     showPlacar();
 
-    // Criar token (data+hora fictícia)
-    int day = 5;
-    int month = 12;
-    int year = 2025;
-    int hour = 14;
-    int minute = 0;
-    Serial.print("Nova partida iniciada com o token: ");
-    Serial.print(day);
-    Serial.print("/");
-    Serial.print(month);
-    Serial.print("/");
-    Serial.print(year);
-    Serial.print("/");
-    if (hour < 10)
-        Serial.print("0");
-    Serial.print(hour);
-    Serial.print(":");
-    if (minute < 10)
-        Serial.print("0");
-    Serial.println(minute);
+    struct tm timeinfo;
+    if (getLocalTime(&timeinfo))
+    {
+        Serial.print("Nova partida iniciada com o token: ");
+        Serial.printf("%02d/%02d/%04d %02d:%02d\n",
+                      timeinfo.tm_mday,
+                      timeinfo.tm_mon + 1,
+                      timeinfo.tm_year + 1900,
+                      timeinfo.tm_hour,
+                      timeinfo.tm_min);
+    }
+    else
+    {
+        Serial.println("Erro ao obter hora! Token sem data/hora.");
+    }
 }
 
 // -------------------------------------------------------------------
-
 void showPlacar()
 {
     int value = (score1 * 100) + score2;
@@ -110,7 +134,6 @@ void showPlacar()
 }
 
 // -------------------------------------------------------------------
-
 void processandoGol(APDS9930 &sensor, TwoWire &i2c, uint16_t &prox)
 {
     bool estado = false;
@@ -121,9 +144,9 @@ void processandoGol(APDS9930 &sensor, TwoWire &i2c, uint16_t &prox)
         if (estado)
             showTextOnDisplays("----");
         else
-            showTextOnDisplays("    ");
-        estado = !estado;
+            showTextOnDisplays(" ");
 
+        estado = !estado;
         delay(200);
 
         if (!requisicaoExecutada)
@@ -142,13 +165,13 @@ void processandoGol(APDS9930 &sensor, TwoWire &i2c, uint16_t &prox)
 }
 
 // -------------------------------------------------------------------
-
 void loop()
 {
     // ======================
     // Botão de reset
     // ======================
     int reading = digitalRead(BUTTON_PIN);
+
     if (reading != lastButtonState)
     {
         lastDebounceTime = millis();
@@ -164,12 +187,13 @@ void loop()
                 reading = digitalRead(BUTTON_PIN);
                 Serial.println("Esperando soltar botão");
                 delay(100);
-                showTextOnDisplays("    ");
+                showTextOnDisplays(" ");
                 delay(100);
             }
             startNewMatch(); // reinicia a partida
         }
     }
+
     lastButtonState = reading;
 
     // ======================
@@ -180,6 +204,7 @@ void loop()
 
     Wire = I2C_1;
     sensor1.readProximity(prox1);
+
     Wire = I2C_2;
     sensor2.readProximity(prox2);
 
@@ -192,6 +217,7 @@ void loop()
         {
             if (startHigh1 == 0)
                 startHigh1 = now;
+
             if ((now - startHigh1) >= GOL_HOLD_TIME)
             {
                 processandoGol(sensor1, I2C_1, prox1);
@@ -203,10 +229,14 @@ void loop()
             }
         }
         else
+        {
             startHigh1 = 0;
+        }
     }
     else if (prox1 < GOL_THRESHOLD)
+    {
         waitingRecovery1 = false;
+    }
 
     // ---------------------
     // Sensor 2 → Gol Time 2
@@ -217,6 +247,7 @@ void loop()
         {
             if (startHigh2 == 0)
                 startHigh2 = now;
+
             if ((now - startHigh2) >= GOL_HOLD_TIME)
             {
                 processandoGol(sensor2, I2C_2, prox2);
@@ -228,10 +259,14 @@ void loop()
             }
         }
         else
+        {
             startHigh2 = 0;
+        }
     }
     else if (prox2 < GOL_THRESHOLD)
+    {
         waitingRecovery2 = false;
+    }
 
     delay(50);
 }
