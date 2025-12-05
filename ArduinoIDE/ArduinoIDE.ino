@@ -83,7 +83,7 @@ void loop()
     Serial.println(prox2);
   }
 
-  // Mostra o número nos 2 displays, sempre com 4 dígitos
+  // Mostra o número nos 2 displays, sempre com 4 dígitoss
   showNumberOnDisplays(counter);
   counter++;
   if (counter > 9999)
