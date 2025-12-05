@@ -1,17 +1,21 @@
 dependencies:
+  heronet/tm1637:
+    component_hash: ac44c524144ece094a76716c0d2fe666427a7de7d864d86e762b56b84c216115
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=4.4'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.0.1
   idf:
     source:
       type: idf
     version: 5.5.1
-  tm1637:
-    dependencies: []
-    source:
-      path: C:\Users\rafae\OneDrive\Documents\IOT2-AirHockey\components\tm1637
-      type: local
-    version: 1.0.1
 direct_dependencies:
 - heronet/tm1637
 - idf
-manifest_hash: 57bcac2ca8fbaa31b0f5bba0a2aa11adf4713b8855e1d446684a885f881e7540
+manifest_hash: b416c0920bdc1d5c2a2ae727cf37ae385d7e733682752344ee92da9f386b2e78
 target: esp32
 version: 2.0.0
