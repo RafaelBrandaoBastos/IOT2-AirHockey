@@ -1,89 +1,27 @@
 #include "display_utils.h"
 #include <Arduino.h>
 
-#define CLK 26
-#define DIO 27
+// Primeira dupla de pinos
+#define CLK1 33
+#define DIO1 25
 
-TM1637Display display(CLK, DIO);
+// Segunda dupla de pinos
+#define CLK2 26
+#define DIO2 27
 
-const uint8_t celsius[] = {
-    SEG_A | SEG_B | SEG_F | SEG_G,
-    SEG_A | SEG_D | SEG_E | SEG_F};
+TM1637Display display1(CLK1, DIO1);
+TM1637Display display2(CLK2, DIO2);
 
-const uint8_t done[] = {
-    SEG_B | SEG_C | SEG_D | SEG_E | SEG_G,
-    SEG_A | SEG_B | SEG_C | SEG_D | SEG_E | SEG_F,
-    SEG_C | SEG_E | SEG_G,
-    SEG_A | SEG_D | SEG_E | SEG_F | SEG_G};
-
-void initDisplay()
+void initDisplays()
 {
-    display.clear();
-    display.setBrightness(7);
+    display1.setBrightness(7);
+    display2.setBrightness(7);
+    display1.clear();
+    display2.clear();
 }
 
-void showCounter()
+void showNumberOnDisplays(int number)
 {
-    for (int i = 0; i < 10; i++)
-    {
-        display.showNumberDec(i);
-        delay(500);
-        display.clear();
-    }
-}
-
-void showNegativeNumbers()
-{
-    display.showNumberDec(-91);
-    delay(2000);
-    display.clear();
-
-    display.showNumberDec(-109);
-    delay(2000);
-    display.clear();
-}
-
-void showLeadingZeros()
-{
-    display.showNumberDec(21, false);
-    delay(2000);
-    display.clear();
-
-    display.showNumberDec(21, true);
-    delay(2000);
-    display.clear();
-}
-
-void showPartialDigits()
-{
-    display.showNumberDec(28, false, 2, 1);
-    delay(2000);
-    display.clear();
-
-    display.showNumberDec(-9, false, 3, 0);
-    delay(2000);
-    display.clear();
-}
-
-void showTime()
-{
-    display.showNumberDecEx(1530, 0b11100000, false, 4, 0);
-    delay(2000);
-    display.clear();
-}
-
-void showTemperature()
-{
-    int temperature = 23;
-    display.showNumberDec(temperature, false, 2, 0);
-    display.setSegments(celsius, 2, 2);
-    delay(2000);
-    display.clear();
-}
-
-void showDone()
-{
-    display.setSegments(done);
-    delay(2000);
-    display.clear();
+    display1.showNumberDec(number, true);
+    display2.showNumberDec(number, true);
 }
