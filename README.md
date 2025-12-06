@@ -39,7 +39,7 @@
     <tr>
       <td align="center">
         <a href="https://www.linkedin.com/in/bernardo-bydo-miranda/" title="LinkedIn de Bernardo">
-          <img src="./assets/user.png" width="80px" height="auto"/><br>
+          <img src="./assets/bernardo.jfif" width="80px" height="auto"/><br>
           <sub><b>Bernardo Miranda</b></sub>
         </a>
       </td>
