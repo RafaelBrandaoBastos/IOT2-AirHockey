@@ -1,8 +1,13 @@
 # PUC Minas University - Air Hockey
 
 <div align="center">
-  <img src="./assets/BANNERTESTE.png" alt="logo" width="100%" height="auto" />
+  <img src="./assets/banner.jpg" alt="logo" width="100%" height="auto" />
+</div>
 
+<div align="center">
+
+  # Air Hockey Team
+  
   &nbsp;
   <p>Membros</p>
   <table>
@@ -16,7 +21,7 @@
       <td align="center">
         <a href="https://github.com/Awakened-Redstone" title="GitHub de Marcos Dias">
           <img src="./assets/user.png" width="100px" height="auto"/><br>
-          <sub><b>Marcos Dias</b></sub>
+          <sub><b>Yrlan Teixeira</b></sub>
         </a>
       </td>
       <td align="center">
