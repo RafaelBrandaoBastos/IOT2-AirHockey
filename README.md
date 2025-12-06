@@ -12,20 +12,20 @@
     <tr>
       <td align="center">
         <a href="https://github.com/RafaelBrandaoBastos" title="GitHub de Rafael Brandão">
-          <img src="./assets/user.png" width="100px" height="auto"/><br>
+          <img src="./assets/rafa.png" width="100px" height="auto"/><br>
           <sub><b>Rafael Brandão</b></sub>
         </a>
       </td>
       <td align="center">
-        <a href="https://github.com/Awakened-Redstone" title="GitHub de Yrlan Teixeira">
-          <img src="./assets/user.png" width="100px" height="auto"/><br>
+        <a href="https://github.com/yrlanrteixeira" title="GitHub de Yrlan Teixeira">
+          <img src="./assets/yrlan.png" width="100px" height="auto"/><br>
           <sub><b>Yrlan Teixeira</b></sub>
         </a>
       </td>
       <td align="center">
-        <a href="https://github.com/Caio" title="GitHub de Caio">
+        <a href="https://github.com/scrow-rgb" title="GitHub de Caio">
           <img src="./assets/user.png" width="100px" height="auto"/><br>
-          <sub><b>Pedro Lucas</b></sub>
+          <sub><b>Caio</b></sub>
         </a>
       </td>
       <td align="center">
