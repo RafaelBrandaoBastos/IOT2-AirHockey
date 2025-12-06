@@ -1,8 +1,8 @@
 # PUC Minas University - Air Hockey
 
-<div align="center">
-  <img src="./assets/banner.jpg" alt="logo" width="100%" height="auto" />
-</div>
+
+<img src="./assets/banner.jpg" alt="logo" width="100%" height="auto" />
+
 
 <div align="center">
 
@@ -53,7 +53,12 @@
   </table>
 </div>
 
+# Results
+
+
+
 # 3D Prints
+<img src="./assets/parts.png" alt="logo" width="100%" height="auto" />
 
 # Frontend
 
