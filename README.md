@@ -24,7 +24,7 @@
       </td>
       <td align="center">
         <a href="https://github.com/scrow-rgb" title="GitHub de Caio">
-          <img src="./assets/user.png" width="100px" height="auto"/><br>
+          <img src="./assets/caio.png" width="100px" height="auto"/><br>
           <sub><b>Caio</b></sub>
         </a>
       </td>
