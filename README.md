@@ -54,8 +54,10 @@
 </div>
 
 # Results
-
-
+<div align="center">
+  <img src="./assets/angulado.jpg" alt="logo" width="49.5%" height="auto" />
+  <img src="./assets/delado.png" alt="logo" width="49.5%" height="auto" />
+</div>
 
 # 3D Prints
 <img src="./assets/parts.png" alt="logo" width="100%" height="auto" />
