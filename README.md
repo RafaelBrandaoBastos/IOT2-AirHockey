@@ -38,21 +38,15 @@
   <table>
     <tr>
       <td align="center">
-        <a href="https://www.linkedin.com/in/pedro-carneiro-rabetim-11156222a/" title="LinkedIn de Pedro Carneiro">
+        <a href="https://www.linkedin.com/in/bernardo-bydo-miranda/" title="LinkedIn de Bernardo">
           <img src="./assets/user.png" width="80px" height="auto"/><br>
-          <sub><b>Pedro Carneiro</b></sub>
+          <sub><b>Bernardo Miranda</b></sub>
         </a>
       </td>
       <td align="center">
         <a href="https://www.linkedin.com/in/mario-buratto-047b3630/" title="LinkedIn de Mario Buratto">
-          <img src="./assets/user.png" width="80px" height="auto"/><br>
+          <img src="./assets/mario.jfif" width="80px" height="auto"/><br>
           <sub><b>Prof Mario B.</b></sub>
-        </a>
-      </td>
-      <td align="center">
-        <a href="https://www.linkedin.com/in/ilorivero/" title="LinkedIn de Ilo Ribeiro">
-          <img src="./assets/user.png" width="80px" height="auto"/><br>
-          <sub><b>Prof Ilo Ribeiro</b></sub>
         </a>
       </td>
     </tr>
