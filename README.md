@@ -8,8 +8,6 @@
 
   # Air Hockey Team
   
-  &nbsp;
-  <p>Membros</p>
   <table>
     <tr>
       <td align="center">
@@ -19,25 +17,24 @@
         </a>
       </td>
       <td align="center">
-        <a href="https://github.com/Awakened-Redstone" title="GitHub de Marcos Dias">
+        <a href="https://github.com/Awakened-Redstone" title="GitHub de Yrlan Teixeira">
           <img src="./assets/user.png" width="100px" height="auto"/><br>
           <sub><b>Yrlan Teixeira</b></sub>
         </a>
       </td>
       <td align="center">
-        <a href="https://github.com/MattosPedro" title="GitHub de Pedro Lucas">
+        <a href="https://github.com/Caio" title="GitHub de Caio">
           <img src="./assets/user.png" width="100px" height="auto"/><br>
           <sub><b>Pedro Lucas</b></sub>
         </a>
       </td>
       <td align="center">
-        <img src="./assets/user.png" width="100px" height="auto"/><br>
+        <img src="./assets/rodrigo.png" width="100px" height="auto"/><br>
         <sub><b>Rodrigo Rocha</b></sub>
       </td>
     </tr>
   </table>
-
-  <p>Colaboradores</p>
+  <h3>Colaborators</h3>
   <table>
     <tr>
       <td align="center">
