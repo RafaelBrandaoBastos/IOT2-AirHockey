@@ -56,7 +56,7 @@
 # Results
 <div align="center">
   <img src="./assets/angulado.jpg" alt="logo" width="49.5%" height="auto" />
-  <img src="./assets/delado.png" alt="logo" width="49.5%" height="auto" />
+  <img src="./assets/completolado.jpg" alt="logo" width="49.5%" height="auto" />
 </div>
 <div align="center">
   <img src="./assets/vents.jpg" alt="logo" width="49.5%" height="auto" />
