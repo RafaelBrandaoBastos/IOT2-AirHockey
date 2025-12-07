@@ -36,16 +36,17 @@
       </td>
     </tr>
   </table>
-  <h3>Colaborators</h3>
   <table>
     <tr>
       <td align="center">
+        <p>3D Supervisor</p>
         <a href="https://www.linkedin.com/in/bernardo-bydo-miranda/" title="LinkedIn de Bernardo">
           <img src="./assets/bernardo.jfif" width="80px" height="auto"/><br>
           <sub><b>Bernardo Miranda</b></sub>
         </a>
       </td>
       <td align="center">
+        <p>Instructor</p>
         <a href="https://www.linkedin.com/in/mario-buratto-047b3630/" title="LinkedIn de Mario Buratto">
           <img src="./assets/mario.jfif" width="80px" height="auto"/><br>
           <sub><b>Prof Mario B.</b></sub>
