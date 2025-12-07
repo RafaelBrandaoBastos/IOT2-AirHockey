@@ -12,8 +12,9 @@ void initDisplays() {
 }
 
 void showNumberOnDisplays(int number) {
-    display1.showNumberDec(number, true);
-    display2.showNumberDec(number, true);
+    // 0x40 ativa as duas bolinhas no meio
+    display1.showNumberDecEx(number, 0x40, true);
+    display2.showNumberDecEx(number, 0x40, true);
 }
 
 void showTextOnDisplays(const char* text) {
@@ -28,6 +29,8 @@ void showTextOnDisplays(const char* text) {
             data[i] = 0x00; // espaço em branco
         }
     }
+    
+    // NÃO ativa as bolinhas quando mostrar texto
     display1.setSegments(data);
     display2.setSegments(data);
 }
