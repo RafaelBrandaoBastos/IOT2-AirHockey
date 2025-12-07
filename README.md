@@ -46,7 +46,7 @@
         </a>
       </td>
       <td align="center">
-        <p>Instructor</p>
+        <p>Gen. Supervisor</p>
         <a href="https://www.linkedin.com/in/mario-buratto-047b3630/" title="LinkedIn de Mario Buratto">
           <img src="./assets/mario.jfif" width="80px" height="auto"/><br>
           <sub><b>Prof Mario B.</b></sub>
