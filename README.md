@@ -29,8 +29,10 @@
         </a>
       </td>
       <td align="center">
-        <img src="./assets/rodrigo.png" width="100px" height="auto"/><br>
-        <sub><b>Rodrigo Rocha</b></sub>
+        <a href="https://github.com/RodrigoRocha2810" title="GitHub de Rodrigo">
+          <img src="./assets/rodrigo.png" width="100px" height="auto"/><br>
+          <sub><b>Rodrigo Rocha</b></sub>
+        </a>
       </td>
     </tr>
   </table>
