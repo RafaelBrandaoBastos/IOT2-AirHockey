@@ -64,6 +64,10 @@
   <img src="./assets/vents.jpg" alt="logo" width="49.5%" height="auto" />
   <img src="./assets/cima.jpg" alt="logo" width="49.5%" height="auto" />
 </div>
+<div align="center">
+  <img src="./assets/perto.jpg" alt="logo" width="49.5%" height="auto" />
+  <img src="./assets/ladoaberto.jpg" alt="logo" width="49.5%" height="auto" />
+</div>
 
 # 3D Prints
 <img src="./assets/parts.png" alt="logo" width="100%" height="auto" />
