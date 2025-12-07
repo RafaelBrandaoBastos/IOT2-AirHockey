@@ -75,7 +75,3 @@
 
 ## Modified version of:
 https://makerworld.com/pt/models/783768-miniature-desktop-airhockey-table-a1-mini-no-ams?from=search#profileId-721221
-
-# Frontend
-
-# Backend
